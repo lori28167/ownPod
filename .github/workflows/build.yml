@@ -42,14 +42,11 @@ jobs:
       - name: Set up arm64 apt sources
         run: |
           sudo dpkg --add-architecture arm64
-          # Only modify ubuntu sources, skip third-party lists
           for f in /etc/apt/sources.list.d/ubuntu*.sources; do
             [ -f "$f" ] && sudo sed -i 's/^Architectures:.*/Architectures: amd64/' "$f" || true
           done
-          sudo tee /etc/apt/sources.list.d/arm64-ports.list > /dev/null <<'SOURCES'
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe
-deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe
-SOURCES
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe" | sudo tee /etc/apt/sources.list.d/arm64-ports.list
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe" | sudo tee -a /etc/apt/sources.list.d/arm64-ports.list
           sudo apt-get update
 
       - name: Install cross-compilation dependencies
