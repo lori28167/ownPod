@@ -46,10 +46,10 @@ jobs:
           for f in /etc/apt/sources.list.d/ubuntu*.sources; do
             [ -f "$f" ] && sudo sed -i 's/^Architectures:.*/Architectures: amd64/' "$f" || true
           done
-          sudo tee /etc/apt/sources.list.d/arm64-ports.list <<SOURCES
-          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe
-          deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe
-          SOURCES
+          sudo tee /etc/apt/sources.list.d/arm64-ports.list > /dev/null <<'SOURCES'
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe
+SOURCES
           sudo apt-get update
 
       - name: Install cross-compilation dependencies
