@@ -3,7 +3,7 @@
 An open-source, DIY portable music player inspired by the classic iPod. Built on a Raspberry Pi Zero 2W with a custom HAT PCB, featuring local MP3/FLAC playback and Spotify Connect streaming.
 
 ![Status](https://img.shields.io/badge/status-work%20in%20progress-yellow)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![License](https://img.shields.io/badge/license-GPL--2.0-blue)
 
 ## Features
 
@@ -131,4 +131,4 @@ This is a personal project but contributions are welcome. Open an issue or PR if
 
 ## License
 
-MIT
+GPL-2.0 — see [LICENSE](LICENSE)

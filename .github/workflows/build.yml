@@ -1,0 +1,69 @@
+name: Build Firmware
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake pkg-config \
+            libmpv-dev \
+            libgpiod-dev \
+            libdbus-1-dev \
+            gcc-aarch64-linux-gnu \
+            g++-aarch64-linux-gnu
+
+      - name: Clone LVGL
+        run: git clone --depth 1 --branch v9.2.0 https://github.com/lvgl/lvgl.git firmware/lib/lvgl
+
+      - name: Configure (native)
+        run: cmake -B build -S firmware
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+  build-cross:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cross-compilation dependencies
+        run: |
+          sudo dpkg --add-architecture arm64
+          sudo sed -i 's/^deb /deb [arch=amd64] /' /etc/apt/sources.list.d/*.list || true
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ $(lsb_release -cs) main restricted universe" | sudo tee /etc/apt/sources.list.d/arm64.list
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ $(lsb_release -cs)-updates main restricted universe" | sudo tee -a /etc/apt/sources.list.d/arm64.list
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake pkg-config \
+            gcc-aarch64-linux-gnu g++-aarch64-linux-gnu \
+            libmpv-dev:arm64 \
+            libgpiod-dev:arm64 \
+            libdbus-1-dev:arm64
+
+      - name: Clone LVGL
+        run: git clone --depth 1 --branch v9.2.0 https://github.com/lvgl/lvgl.git firmware/lib/lvgl
+
+      - name: Configure (cross-compile for RPi Zero 2W)
+        run: cmake -B build -S firmware -DCMAKE_TOOLCHAIN_FILE=firmware/cmake/rpi-zero2w-toolchain.cmake
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ownpod-player-aarch64
+          path: build/ownpod-player
