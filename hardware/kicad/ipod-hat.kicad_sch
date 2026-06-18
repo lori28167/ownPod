@@ -6,7 +6,7 @@
   (paper "A3")
 
   (title_block
-    (title "iPod Player HAT")
+    (title "ownPod HAT")
     (date "2026-06-18")
     (rev "0.1")
     (comment 1 "RPi Zero 2W HAT - PCM5102A DAC + Power + Display + Input")

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Custom iPod-like portable music player built on a Raspberry Pi Zero 2W. Plays local MP3/FLAC files and supports Spotify Connect via librespot. The UI replicates the classic iPod interface (cover flow, scrolling lists, click wheel navigation) rendered on a 2" IPS SPI display using LVGL.
+ownPod — custom iPod-like portable music player built on a Raspberry Pi Zero 2W. Plays local MP3/FLAC files and supports Spotify Connect via librespot. The UI replicates the classic iPod interface (cover flow, scrolling lists, click wheel navigation) rendered on a 2" IPS SPI display using LVGL.
 
 ## Architecture
 

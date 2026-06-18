@@ -1,4 +1,4 @@
-// iPod Player Case - OpenSCAD
+// ownPod Case - OpenSCAD
 // Designed for RPi Zero 2W + custom HAT + 2" IPS display
 // Print in PLA or PETG, 0.2mm layer height
 

@@ -106,7 +106,7 @@
   )
 
   ;; Silkscreen labels for component placement zones
-  (gr_text "iPod Player HAT v0.1" (at 32.5 54) (layer "F.SilkS")
+  (gr_text "ownPod HAT v0.1" (at 32.5 54) (layer "F.SilkS")
     (effects (font (size 1.5 1.5) (thickness 0.15)))
     (uuid "d0000003-0001-4000-8000-000000000001"))
 
